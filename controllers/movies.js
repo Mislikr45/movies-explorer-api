@@ -14,7 +14,12 @@ const {
 } = require('../utils/constants');
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({}).then((movies) => res.send(movies)).catch((error) => next(error));
+  const { _id } = req.user;
+  Movie.find({ owner: _id })
+    .then((movies) => {
+      res.send(movies);
+    })
+    .catch(next);
 };
 
 module.exports.createMovie = (req, res, next) => {
