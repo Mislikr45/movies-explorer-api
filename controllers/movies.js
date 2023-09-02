@@ -52,7 +52,6 @@ module.exports.createMovie = (req, res, next) => {
 
 module.exports.deleteMovie = (req, res, next) => {
   const { movieId } = req.body;
-
   Movie.findById(movieId)
     .then((movie) => {
       if (!movie) {
