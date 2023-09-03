@@ -42,8 +42,9 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.delCookie = (req, res) => {
-  res.clearCookie('jwt');
-  res.redirect('/');
+  res.send('HI');
+  // res.clearCookie('jwt');
+  // res.redirect('/');
 };
 
 // Информация о пользователе
