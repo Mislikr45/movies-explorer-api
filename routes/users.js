@@ -15,6 +15,4 @@ router.get('/users/me', getUser);
 // обновляет информацию о пользователе (email и имя)
 router.patch('/users/me', validateUserUpdate, updateUserInfo);
 
-
-
 module.exports = router;

@@ -11,6 +11,9 @@ const ERROR_CODE_UNIQUE = 11000;
 const STATUS_200 = 200;
 const STATUS_201 = 201;
 
+const SUCCESSFUL_AUTHORIZATION = 'Вы успешно авторизованны';
+const SUCCESSFUL_ACTION = 'Действие выполненно успешно';
+
 module.exports = {
   STATUS_201,
   STATUS_200,
@@ -22,4 +25,6 @@ module.exports = {
   AUTHORIZATION_ERROR,
   DEFAULT_ERROR,
   EMAIL_ERROR,
+  SUCCESSFUL_ACTION,
+  SUCCESSFUL_AUTHORIZATION,
 };
