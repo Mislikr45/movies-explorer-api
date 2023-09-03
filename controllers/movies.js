@@ -17,8 +17,8 @@ const {
 } = require('../utils/constants');
 
 module.exports.getMovies = (req, res, next) => {
-  const { owner } = req.user;
-  Movie.find(owner)
+  const id = req.user._id;
+  Movie.find({ owner: id })
     .then((movies) => {
       res.status(STATUS_200).send(movies);
     })
