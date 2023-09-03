@@ -18,7 +18,11 @@ const {
 
 module.exports.getMovies = (req, res, next) => {
   const id = req.user._id;
-  res.send(req.user._id);
+  Movie.find({ owner: id })
+    .then((movies) => {
+      res.status(STATUS_200).send(movies);
+    })
+    .catch(next);
 };
 
 module.exports.createMovie = (req, res, next) => {
