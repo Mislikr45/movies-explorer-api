@@ -7,7 +7,14 @@ const AUTHORIZATION_ERROR = 'Ошибка авторизации';
 const DEFAULT_ERROR = 'Ошибка по умолчанию';
 const EMAIL_ERROR = 'Пользователь с таким электронным адресом уже зарегистрирован';
 
+const ERROR_CODE_UNIQUE = 11000;
+const STATUS_200 = 200;
+const STATUS_201 = 201;
+
 module.exports = {
+  STATUS_201,
+  STATUS_200,
+  ERROR_CODE_UNIQUE,
   URL_REGEX,
   BAD_REQUEST_ERROR,
   NOT_FOUND_ERROR,

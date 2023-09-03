@@ -22,6 +22,9 @@ const {
   AUTHORIZATION_ERROR,
   DEFAULT_ERROR,
   EMAIL_ERROR,
+  ERROR_CODE_UNIQUE,
+  STATUS_201,
+  STATUS_200,
 } = require('../utils/constants');
 
 // Логирование
@@ -31,13 +34,16 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const payload = { _id: user._id };
       const token = jwt.sign(payload, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      // res.cookie('jwt', token);
-      // res.send({ user, token });
-      res.send({ jwt: token });
+      res.status(STATUS_201).send({ jwt: token });
     })
     .catch(() => next(new AuthorizationError(
       AUTHORIZATION_ERROR,
     )));
+};
+
+module.exports.delCookie = (req, res) => {
+  res.clearCookie('jwt');
+  res.redirect('/');
 };
 
 // Информация о пользователе
@@ -50,7 +56,7 @@ module.exports.getUser = (req, res, next) => {
           NOT_FOUND_ERROR,
         ));
       } else {
-        res.send(user);
+        res.status(STATUS_200).send(user);
       }
     }).catch(() => next(new DefaultErore(
       DEFAULT_ERROR,
@@ -65,13 +71,13 @@ module.exports.createUser = (req, res, next) => {
       email: req.body.email,
       password: hash,
     }))
-    .then((usernew) => res.send({
+    .then((usernew) => res.status(STATUS_201).send({
       _id: usernew._id,
       email: usernew.email,
       name: usernew.name,
     }))
     .catch((err) => {
-      if (err.code === 11000) {
+      if (err.code === ERROR_CODE_UNIQUE) {
         next(new EmailErrors(EMAIL_ERROR));
       } else if (err.name === 'ValidationError') {
         next(new BadRequestError(BAD_REQUEST_ERROR));
@@ -90,12 +96,13 @@ module.exports.updateUserInfo = (req, res, next) => {
     { email, name },
     { new: true, runValidators: true },
   ).then((user) => {
-    if (user) return res.send(user);
+    if (user) return res.status(STATUS_201).send(user);
     throw new NotFoundError(NOT_FOUND_ERROR);
   })
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new BadRequestError(BAD_REQUEST_ERROR));
+        if (err.name === 'CastError') next(new BadRequestError(BAD_REQUEST_ERROR));
       } else {
         next(err);
       }

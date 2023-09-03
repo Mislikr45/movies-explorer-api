@@ -8,16 +8,19 @@ const NotFoundError = require('../errors/NotFoundError');
 const AcessError = require('../errors/AcessError');
 
 const {
+  STATUS_200,
+  STATUS_201,
   BAD_REQUEST_ERROR,
   NOT_FOUND_ERROR,
   ACESS_ERROR,
+  SUCCESSFUL_ACTION,
 } = require('../utils/constants');
 
 module.exports.getMovies = (req, res, next) => {
   const { _id } = req.user;
   Movie.find({ owner: _id })
     .then((movies) => {
-      res.send(movies);
+      res.status(STATUS_200).send(movies);
     })
     .catch(next);
 };
@@ -42,7 +45,7 @@ module.exports.createMovie = (req, res, next) => {
     movieId,
     owner: id,
   })
-    .then((movie) => res.status(201).send(movie)) // ОК
+    .then((movie) => res.status(STATUS_201).send(movie)) // ОК
     .catch((error) => {
       if (error.name === 'ValidationError') {
         return next(
@@ -69,13 +72,14 @@ module.exports.deleteMovie = (req, res, next) => {
           ACESS_ERROR,
         ));
       } else {
-        Movie.findByIdAndRemove(movieId).then((movies) => { res.send({ data: movies }); })
+        Movie.findByIdAndRemove(movieId).then(() => { res.send(SUCCESSFUL_ACTION); })
           .catch((err) => { next(err); });
       }
     })
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new BadRequestError(BAD_REQUEST_ERROR));
+        if (err.name === 'CastError') next(new BadRequestError(BAD_REQUEST_ERROR));
       } else {
         next(err);
       }
