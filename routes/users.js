@@ -7,12 +7,14 @@ const {
   getUser, updateUserInfo, delCookie,
 } = require('../controllers/users');
 
+router.get('/signout', delCookie);
+
 // возвращает информацию о пользователе (email и имя)
 router.get('/users/me', getUser);
 
 // обновляет информацию о пользователе (email и имя)
 router.patch('/users/me', validateUserUpdate, updateUserInfo);
 
-router.get('/signout', delCookie);
+
 
 module.exports = router;
