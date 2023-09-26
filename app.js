@@ -39,7 +39,7 @@ mongoose.connect(
 );
 
 app.use(requestLogger);
-app.use(limiter);
+// app.use(limiter);
 app.use(routerAll);
 app.use(errorLogger);
 app.use(errors());

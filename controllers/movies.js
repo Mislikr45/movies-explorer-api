@@ -59,7 +59,7 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  const { movieId } = req.body;
+  const { movieId } = req.params;
   Movie.findById(movieId)
     .then((movie) => {
       if (!movie) {
