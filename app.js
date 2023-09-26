@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cookies());
 app.use(express.json({ extended: true }));
 app.use(cors({
-  origin: ['https://api.mislikr45r45.nomoredomainsrocks.ru', 'http://api.mislikr45r45.nomoredomainsrocks.ru',
+  origin: ['https://mislikr45r45.nomoredomainsrocks.ru', 'http://mislikr45r45.nomoredomainsrocks.ru',
     'http://localhost:3000', 'http://localhost:3001'],
   credentials: true,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
