@@ -1,7 +1,7 @@
 const express = require('express');
 const cookies = require('cookie-parser');
 require('dotenv').config();
-const cors = require('cors');
+// const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
@@ -17,12 +17,12 @@ const app = express();
 app.use(express.json());
 app.use(cookies());
 app.use(express.json({ extended: true }));
-app.use(cors({
-  origin: ['https://mislikr45r45.nomoredomainsrocks.ru', 'http://mislikr45r45.nomoredomainsrocks.ru',
-    'http://localhost:3000', 'http://localhost:3001'],
-  credentials: true,
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
-}));
+// app.use(cors({
+//   origin: ['https://mislikr45r45.nomoredomainsrocks.ru', 'http://mislikr45r45.nomoredomainsrocks.ru',
+//     'http://localhost:3000', 'http://localhost:3001'],
+//   credentials: true,
+//   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+// }));
 
 app.use(helmet());
 app.disable('x-powered-by');
