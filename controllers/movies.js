@@ -72,7 +72,8 @@ module.exports.deleteMovie = (req, res, next) => {
           ACESS_ERROR,
         ));
       } else {
-        Movie.findByIdAndRemove(movieId).then(() => { res.send(SUCCESSFUL_ACTION); })
+        Movie.findByIdAndRemove(movieId).then((movies) => { res.send({ data: movies }); })
+        // (() => { res.send(SUCCESSFUL_ACTION); })
           .catch((err) => { next(err); });
       }
     })
