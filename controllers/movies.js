@@ -13,7 +13,6 @@ const {
   BAD_REQUEST_ERROR,
   NOT_FOUND_ERROR,
   ACESS_ERROR,
-  SUCCESSFUL_ACTION,
 } = require('../utils/constants');
 
 module.exports.getMovies = (req, res, next) => {
